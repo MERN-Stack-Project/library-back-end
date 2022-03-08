@@ -2,8 +2,8 @@ const mongoose = require ("mongoose");
 
  const BookModels = new mongoose.Schema({
      title: {type: String},
-     pages: {type: String},
-     price: {type: String},
+     pages: {type: Number},
+     price: {type: Number},
      img: {type: String}
  });
 

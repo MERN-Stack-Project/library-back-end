@@ -50,7 +50,6 @@ try {
 
   const deleteBook = async (req , res )=>{
     const id = req.params.id
-    const userId = req.token.userId
 
    
       try {
@@ -58,7 +57,7 @@ try {
         if(dele){
           res.send("removed")
         } else  { 
-          const dele = await bookModel.findByIdAndDelete({_id:id , userId:userId})
+          const dele = await bookModel.findByIdAndDelete({_id:id })
 
         }
       }
@@ -67,6 +66,18 @@ try {
       }
       } 
     
+
+      const updBook = async (req,res)=>{
+      let {title , pages, price, img}= req.body;
+      let {id} = req.params
+      
+      try {
+        const upBooks = await bookModel.findByIdAndUpdate({_id: id},{title , pages, price, img}, { new: true });
+        res.status(201).json(upBooks)
+      } catch (error) {
+        res.send(error)
+      }
+      }
     
     
   
@@ -74,4 +85,4 @@ try {
 
 
 /////////////////////////////////////////////////
-  module.exports = { bookInfo , addBook ,oneBook ,deleteBook }
+  module.exports = { bookInfo , addBook ,oneBook ,deleteBook, updBook }

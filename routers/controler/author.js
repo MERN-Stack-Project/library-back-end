@@ -29,6 +29,38 @@ const addAuthor = async (req, res) => {
 }
 
 
+const deleteArth = async (re,res)=>{
+  const id = req.params.id;
+
+  try {
+    const dele = await authorModel.findOneAndDelete({_id: id});
+    res.status(201).json(dele);
+    
+  } catch (error) {
+    res.send(error)
+    
+  }
+  
+
+}
 
 
-module.exports = {getAuthor , addAuthor}
+const updetArth = async (req,res)=>{
+  const {name, age, nationalty, img, gender, books } = req.body;
+  const {id} = req.params
+   try {
+     
+    const upArthor = await authorModel.findByIdAndUpdate({_id: id},{ 
+      name, age, nationalty, img, gender, books 
+     }, {new: true});
+    res.status(201).json(upArthor);
+   } catch (error) {
+     res.send(error);
+   }
+}
+
+
+
+
+
+module.exports = {getAuthor , addAuthor, deleteArth, updetArth}
